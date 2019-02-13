@@ -205,7 +205,21 @@ public class ABPDownloader
 					
 					Log.i("ABPDownloader","Response Code: "+responseCode);
 					
-					if(responseCode==200)
+					// With redirect
+					if(followRedirect)
+					{
+						if(responseCode >= 300 && responseCode<=399)
+						{
+							Log.i("ABPDownloader","Redirect URL: "+httpURLConnection.getHeaderField("Location"));
+							
+							setSourceUrl(httpURLConnection.getHeaderField("Location"));
+							start();
+							
+							return;
+						}
+					}
+					
+					if(responseCode >= 200)
 					{
 						totalSize=httpURLConnection.getContentLength();
 						
