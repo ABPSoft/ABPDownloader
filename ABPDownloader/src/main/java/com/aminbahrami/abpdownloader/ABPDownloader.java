@@ -31,6 +31,8 @@ public class ABPDownloader
 	
 	private boolean cancelDownload=false;
 	
+	private boolean followRedirect=false;
+	
 	private String method="GET";
 	
 	private static final Handler HANDLER=new Handler();
@@ -130,6 +132,18 @@ public class ABPDownloader
 		return pauseTime;
 	}
 	
+	public boolean isFollowRedirect()
+	{
+		return followRedirect;
+	}
+	
+	public ABPDownloader setFollowRedirect(boolean followRedirect)
+	{
+		this.followRedirect=followRedirect;
+		
+		return this;
+	}
+	
 	public ABPDownloader setPauseTime(int pauseTime)
 	{
 		this.pauseTime=pauseTime;
@@ -171,7 +185,7 @@ public class ABPDownloader
 					final HttpURLConnection httpURLConnection=(HttpURLConnection) url.openConnection();
 					httpURLConnection.setRequestMethod(getMethod());
 					httpURLConnection.setRequestProperty("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36");
-					httpURLConnection.setInstanceFollowRedirects(false);
+					httpURLConnection.setInstanceFollowRedirects(followRedirect);
 					
 					/*httpURLConnection.setRequestProperty("Host","downloads.semak.ir");
 					httpURLConnection.setRequestProperty("Cache-Control","max-age=0");*/
